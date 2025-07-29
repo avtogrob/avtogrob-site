@@ -1,0 +1,51 @@
+body {
+  background-color: #111;
+}
+
+p {
+  color: #fff;
+}
+
+canvas {
+  background: #333;
+}
+
+button {
+  cursor: pointer;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  margin: 32px;
+}
+.header-container button {
+  display: block;
+  background-color: #333;
+  color:#fff;
+  font-size: 32px;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.canvas-container {
+  display: flex;
+  justify-content: center;
+}
+
+.canvas-container button {
+  background-color: #bb3333;
+  color: #000;
+  font-size: 18px;
+  transition: 0.2s;
+}
+
+.canvas-container button:hover {
+  background-color: #ff3333;
+  color: #000;
+}
+
+.canvas-container button:active {
+  background-color: #222;
+  color: #ff3333;
+}
