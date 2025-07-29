@@ -28,21 +28,18 @@ button {
   margin-right: 10px;
 }
 
-@media only screen and (max-width: 815px) {
+.canvas-container {
+  display: flex;
+  justify-content: center;
+}
+
+@media (pointer:none), (pointer:coarse) {
   .canvas-container {
     display: flex;
     justify-content: center;
     scale: 0.6;
   }
 }
-
-@media only screen and (min-width: 816px) {
-  .canvas-container {
-    display: flex;
-    justify-content: center;
-  }
-}
-
 
 .canvas-container button {
   background-color: #bb3333;
