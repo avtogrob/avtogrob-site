@@ -35,7 +35,7 @@ button {
   }
 }
 
-@media (any-pointer:coarse) {
+@media (pointer:coarse) {
   .canvas-container {
     display: flex;
     justify-content: center;
