@@ -46,7 +46,9 @@ button {
 .canvas-container button {
   background-color: #bb3333;
   color: #000;
-  font-size: 18px;
+  font-size: 32px;
+  padding-left: 18px;
+  padding-right: 18px;
   transition: 0.2s;
 }
 
