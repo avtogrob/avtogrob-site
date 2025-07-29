@@ -28,14 +28,14 @@ button {
   margin-right: 10px;
 }
 
-@media (pointer: fine) {
+@media only screen and (min-width: 405px) {
   .canvas-container {
     display: flex;
     justify-content: center;
   }
 }
 
-@media (pointer:coarse) {
+@media only screen and (max-width: 403px) {
   .canvas-container {
     display: flex;
     justify-content: center;
