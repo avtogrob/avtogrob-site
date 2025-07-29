@@ -1,8 +1,9 @@
 body {
-  background-color: #111;
+  background-color: #151515;
 }
 
 p {
+  margin: 10px;
   color: #fff;
 }
 
@@ -12,6 +13,7 @@ canvas {
 
 button {
   cursor: pointer;
+  font-size: 32px;
 }
 
 .header-container {
@@ -20,44 +22,51 @@ button {
   margin: 32px;
 }
 .header-container button {
-  display: block;
   background-color: #333;
   color:#fff;
-  font-size: 32px;
   padding: 10px;
   margin-right: 10px;
 }
 
-@media only screen and (min-width: 405px) {
+.canvas-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 600px;
+  width: 50%;
+  margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
   .canvas-container {
-    display: flex;
-    justify-content: center;
+    scale: 60%;
   }
 }
 
-@media only screen and (max-width: 403px) {
+@media only screen and (max-width: 320px) {
   .canvas-container {
-    display: flex;
-    justify-content: center;
-    scale: 0.6;
+    scale: 40%
   }
 }
 
-.canvas-container button {
+.gameButton {
+  display: flex;
+}
+
+.gameButton button {
   background-color: #bb3333;
   color: #000;
-  font-size: 32px;
-  padding-left: 18px;
-  padding-right: 18px;
+  padding: 8px;
   transition: 0.2s;
 }
 
-.canvas-container button:hover {
+.gameButton button:hover {
   background-color: #ff3333;
   color: #000;
 }
 
-.canvas-container button:active {
+.gameButton button:active {
   background-color: #222;
   color: #ff3333;
 }

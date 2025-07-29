@@ -82,7 +82,7 @@ function drawDie1Pips() {
 function drawTitle() {
   ctx.font = "32px Monospace";
   ctx.fillStyle = color0;
-  ctx.fillText("Chō-han", 30, 40);
+  ctx.fillText("Chō-Han", 30, 40);
   ctx.font = "16px Monospace";
   ctx.fillStyle = color1;
   ctx.fillText("The Amazing Dice Game", 30, 60);
