@@ -96,7 +96,7 @@ function animateRoll() {
       roller++;
     }
     if (roller > 6) {
-      roller = 0;
+
       isRoll = false;
       isShow = true;
     }
@@ -122,16 +122,16 @@ function drawResult() {
   if (!isRoll && rollResult != 0) {
     ctx.font = "72px Monospace";
     ctx.fillStyle = color0;
-    ctx.fillText(`${rollResult}`, 131, canvas.height / 2);
+    ctx.fillText(`#0${rollResult}`, 80, canvas.height / 2);
 
     if (rollResult % 2 === 0 || rollResult === "A" || rollResult === "C") {
-      ctx.font = "64px Monospace";
+      ctx.font = "72px Monospace";
       ctx.fillStyle = color0;
-      ctx.fillText("CHŌ", 100, (canvas.height / 2) + 100);
+      ctx.fillText("CHŌ", 80, (canvas.height / 2) + 110);
     } else {
-      ctx.font = "64px Monospace";
+      ctx.font = "72px Monospace";
       ctx.fillStyle = color0;
-      ctx.fillText("HAN", 100, (canvas.height / 2) + 100);
+      ctx.fillText("HAN", 80, (canvas.height / 2) + 110);
     }
   }
 }
@@ -160,7 +160,7 @@ const rollButton = document.getElementById('rollButton');
 rollButton.addEventListener('click', function() {
   isRoll = true;
   rollDelay = 0;
-  roller = 0;
+  roller = 1;
   isShow = false;
 });
 
