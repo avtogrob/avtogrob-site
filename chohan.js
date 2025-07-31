@@ -32,7 +32,6 @@ let rollResult = 0;
 
 let betCho = false;
 let betHan = false;
-
 let showCho = false;
 let showHan = false;
 
@@ -120,7 +119,6 @@ function animateRoll() {
     fac0 = Math.floor(Math.random() * 6) + 1;
     fac1 = Math.floor(Math.random() * 6) + 1;
   }
-  
 }
 
 function drawResult() {
@@ -158,11 +156,11 @@ function resolveBet() {
       payUp = false;
       bankRoll += 5;
       console.log('win');
-    } else if ((showCho && betHan) || (showHan && betCho)) {
+    } /*else if ((showCho && betHan) || (showHan && betCho)) {
       payUp = false;
       bankRoll -= 3;
       console.log('loss');
-    }
+    }*/
   }
 }
 
@@ -238,6 +236,7 @@ rollButton.addEventListener('click', function() {
   if (!isRoll) {
     if ((bankRoll > 0)) {
       if (betCho != betHan) {
+        bankRoll -= 3;
         isRoll = true;
         rollDelay = 0;
         roller = 1;
