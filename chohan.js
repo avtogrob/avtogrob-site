@@ -30,6 +30,18 @@ let rollDelay = 0;
 let rollSpeed = 30;
 let rollResult = 0;
 
+let betCho = false;
+let betHan = false;
+
+let showCho = false;
+let showHan = false;
+
+let payUp = false;
+let bankRoll = 32;
+
+let errorMessage = false;
+let gameOver = false;
+
 function drawDiceFrames() {
   const diePositions = [die0X, die1X];
 
@@ -128,27 +140,41 @@ function drawResult() {
       ctx.font = "72px Monospace";
       ctx.fillStyle = color0;
       ctx.fillText("CHŌ", 80, (canvas.height / 2) + 110);
+      showCho = true;
+      showHan = false;
     } else {
       ctx.font = "72px Monospace";
       ctx.fillStyle = color0;
       ctx.fillText("HAN", 80, (canvas.height / 2) + 110);
+      showHan = true;
+      showCho = false;
     }
   }
 }
 
-/*
-function resizeCanvas() {
-  // if (website.width <= 600px) {
-  canvas.width = 320;
-  canvas.height = 240;
-  // }
+function resolveBet() {
+  if (payUp) {
+    if ((showCho && betCho) || (showHan && betHan)) {
+      payUp = false;
+      bankRoll += 5;
+      console.log('win');
+    } else if ((showCho && betHan) || (showHan && betCho)) {
+      payUp = false;
+      bankRoll -= 3;
+      console.log('loss');
+    }
+  }
 }
-*/
+
+function drawBankRoll() {
+  let bankHex = bankRoll.toString(16);
+  ctx.font = "32px Monospace";
+  ctx.fillStyle = color1;
+  ctx.fillText(`¥: #${bankHex.padStart(4, '0').toUpperCase()}`, canvas.width - 170, 50);
+}
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  //resizeCanvas();
 
   drawDiceFrames();
 
@@ -161,18 +187,72 @@ function draw() {
 
   drawResult();
 
+  resolveBet();
+
+  drawBankRoll();
+
+  if (errorMessage) {
+    ctx.font = "18px Monospace";
+    ctx.fillStyle = color1;
+    ctx.fillText("Please make a bet:", 20, canvas.height - 20);
+  }
+  if (gameOver) {
+    ctx.font = "42px Monospace";
+    ctx.fillStyle = color1;
+    ctx.fillText("GAME OVER", (canvas.width / 2) - 110, canvas.height / 2);
+  }
+
   requestAnimationFrame(draw);
 }
 
 // Device Input
-// (it is now a button)
+// (now buttons)
 //----------------------
+const choButton = document.getElementById('choButton');
+const hanButton = document.getElementById('hanButton');
 const rollButton = document.getElementById('rollButton');
+
+choButton.addEventListener('click', function() {
+  if (!betCho) {
+    choButton.classList.add('betSelected');
+    hanButton.classList.remove('betSelected');
+    errorMessage = false;
+    betHan = false;
+    betCho = true;
+    //payUp = true;
+  }
+});
+
+hanButton.addEventListener('click', function() {
+  if (!betHan) {
+    hanButton.classList.add('betSelected');
+    choButton.classList.remove('betSelected');
+    errorMessage = false;
+    betCho = false;
+    betHan = true;
+    //payUp = true;
+  }
+});
+
 rollButton.addEventListener('click', function() {
-  isRoll = true;
-  rollDelay = 0;
-  roller = 1;
-  isShow = false;
+  if (!isRoll) {
+    if ((bankRoll > 0)) {
+      if (betCho != betHan) {
+        isRoll = true;
+        rollDelay = 0;
+        roller = 1;
+        isShow = false;
+
+        showCho = false;
+        showHan = false;
+        payUp = true;
+      } else {
+        errorMessage = true;
+      }
+    } else {
+      gameOver = true;
+    }
+  }
 });
 
 draw();

@@ -79,9 +79,10 @@ button {
 .gameButton button {
   background-color: #bb3333;
   color: #000;
+  border-width: 5px;
   padding: 12px;
-  padding-left: 28px;
-  padding-right: 28px;
+  padding-left: 24px;
+  padding-right: 24px;
   transition: 0.2s;
 }
 
@@ -91,6 +92,12 @@ button {
 }
 
 .gameButton button:active {
+  background-color: #222;
+  color: #ff3333;
+}
+
+.gameButton button.betSelected {
+  border-color: #ff3333;
   background-color: #222;
   color: #ff3333;
 }
