@@ -32,6 +32,7 @@ let rollResult = 0;
 
 let betCho = false;
 let betHan = false;
+
 let showCho = false;
 let showHan = false;
 
@@ -119,11 +120,13 @@ function animateRoll() {
     fac0 = Math.floor(Math.random() * 6) + 1;
     fac1 = Math.floor(Math.random() * 6) + 1;
   }
+  
 }
 
 function drawResult() {
   rollResult = fac0 + fac1;
-
+  rX = 80;
+  rY = (canvas.height / 2);
   if (rollResult >= 10) {
     if (rollResult === 12) { rollResult = "C" }
     else if (rollResult === 11) { rollResult = "B" }
@@ -132,12 +135,12 @@ function drawResult() {
   if (!isRoll && rollResult != 0) {
     ctx.font = "72px Monospace";
     ctx.fillStyle = color0;
-    ctx.fillText(`#0${rollResult}`, 80, canvas.height / 2);
+    ctx.fillText(`#$0${rollResult}`, rX - 18, rY);
 
     if (rollResult % 2 === 0 || rollResult === "A" || rollResult === "C") {
       ctx.font = "72px Monospace";
       ctx.fillStyle = color0;
-      ctx.fillText("CHŌ", 80, (canvas.height / 2) + 110);
+      ctx.fillText("CHŌ", rX, rY + 110);
       showCho = true;
       showHan = false;
     } else {
@@ -156,11 +159,11 @@ function resolveBet() {
       payUp = false;
       bankRoll += 5;
       console.log('win');
-    } /*else if ((showCho && betHan) || (showHan && betCho)) {
+    } else if ((showCho && betHan) || (showHan && betCho)) {
       payUp = false;
       bankRoll -= 3;
       console.log('loss');
-    }*/
+    }
   }
 }
 
@@ -168,7 +171,7 @@ function drawBankRoll() {
   let bankHex = bankRoll.toString(16);
   ctx.font = "32px Monospace";
   ctx.fillStyle = color1;
-  ctx.fillText(`¥: #${bankHex.padStart(4, '0').toUpperCase()}`, canvas.width - 170, 50);
+  ctx.fillText(`¥: #$${bankHex.padStart(2, '0').toUpperCase()}`, canvas.width - 156, 50);
 }
 
 function draw() {
@@ -236,7 +239,6 @@ rollButton.addEventListener('click', function() {
   if (!isRoll) {
     if ((bankRoll > 0)) {
       if (betCho != betHan) {
-        bankRoll -= 3;
         isRoll = true;
         rollDelay = 0;
         roller = 1;
