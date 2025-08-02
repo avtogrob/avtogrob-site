@@ -28,6 +28,9 @@ let isShow = false;
 let roller = 0;
 let rollDelay = 0;
 let rollSpeed = 60;
+if (window.innerWidth <= 768) {
+  rollSpeed = 6
+};
 let rollResult = 0;
 
 let betCho = false;
@@ -175,7 +178,7 @@ function drawBankRoll() {
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
+
   drawDiceFrames();
 
   drawTitle();
