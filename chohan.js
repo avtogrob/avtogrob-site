@@ -171,7 +171,7 @@ function resolveBet() {
 
 function drawBankRoll() {
   ctx.beginPath();
-  ctx.roundRect(die0X - 8, 80, 140, 52, 5);
+  ctx.roundRect(die0X - 8, 80, 156, 52, 5);
   ctx.strokeStyle = color1;
   ctx.lineWidth = 3;
   ctx.stroke();
