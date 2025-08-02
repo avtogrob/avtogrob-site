@@ -51,7 +51,7 @@ function drawDiceFrames() {
   diePositions.forEach((x) => {
     ctx.beginPath();
     ctx.roundRect(x, dieY, dieWidth, dieHeight, 5);
-    ctx.strokeStyle = color0;
+    ctx.strokeStyle = color1;
     ctx.lineWidth = 3;
     ctx.stroke();
     ctx.closePath();
@@ -65,13 +65,13 @@ function drawDie0Pips() {
       const y = dieY + (row * dieHeight / 4);
       ctx.beginPath();
       ctx.arc(x, y, pipRadius, 0, Math.PI * 2);
-      ctx.fillStyle = color1;
+      ctx.fillStyle = color0;
       ctx.fill();
       ctx.closePath();
     });
   } else {
     ctx.font = "32px arial";
-    ctx.fillStyle = "color1";
+    ctx.fillStyle = color0;
     ctx.fillText("?", die0X + (dieWidth / 2) - 8, dieY + (dieHeight / 2) + 10)
   }
 }
@@ -83,13 +83,13 @@ function drawDie1Pips() {
       const y = dieY + (row * dieHeight / 4);
       ctx.beginPath();
       ctx.arc(x, y, pipRadius, 0, Math.PI * 2);
-      ctx.fillStyle = color1;
+      ctx.fillStyle = color0;
       ctx.fill();
       ctx.closePath();
     });
   } else {
     ctx.font = "32px arial";
-    ctx.fillStyle = color1;
+    ctx.fillStyle = color0;
     ctx.fillText("?", die1X + (dieWidth / 2) - 8, dieY + (dieHeight / 2) + 10)
   }
 }
@@ -129,7 +129,7 @@ function animateRoll() {
 function drawResult() {
   rollResult = fac0 + fac1;
   rX = 80;
-  rY = (canvas.height / 2);
+  rY = (canvas.height / 2) - 32;
   if (rollResult >= 10) {
     if (rollResult === 12) { rollResult = "C" }
     else if (rollResult === 11) { rollResult = "B" }
@@ -170,6 +170,13 @@ function resolveBet() {
 }
 
 function drawBankRoll() {
+  ctx.beginPath();
+  ctx.roundRect(die0X - 8, 80, 140, 52, 5);
+  ctx.strokeStyle = color1;
+  ctx.lineWidth = 3;
+  ctx.stroke();
+  ctx.closePath();
+
   let bankHex = bankRoll.toString(16);
   ctx.font = "46px Monospace";
   ctx.fillStyle = color0;
@@ -178,7 +185,7 @@ function drawBankRoll() {
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+  
   drawDiceFrames();
 
   drawTitle();
@@ -196,15 +203,20 @@ function draw() {
 
   if (errorMessage) {
     ctx.font = "18px Monospace";
-    ctx.fillStyle = color1;
+    ctx.fillStyle = color0;
     ctx.fillText("Please make a bet:", 20, canvas.height - 20);
   }
+
+  if (bankRoll <= 0 && !isRoll) {
+    gameOver = true;
+  }
+
   if (gameOver) {
     color0 = "#a55e5eff";
     color1 = "#a55e5eff";
-    ctx.font = "42px Monospace";
+    ctx.font = "72px Monospace";
     ctx.fillStyle = "#ff3333";
-    ctx.fillText("GAME OVER", (canvas.width / 2) - 110, canvas.height / 2 + 22);
+    ctx.fillText("GAME OVER", (canvas.width / 2) - 178, canvas.height / 2 + 32);
   }
 
   requestAnimationFrame(draw);
@@ -241,7 +253,7 @@ hanButton.addEventListener('click', function() {
 
 rollButton.addEventListener('click', function() {
   if (!isRoll) {
-    if ((bankRoll > 0)) {
+    if (bankRoll > 0) {
       if (betCho != betHan) {
         bankRoll -= 27;
         isRoll = true;
@@ -255,8 +267,6 @@ rollButton.addEventListener('click', function() {
       } else {
         errorMessage = true;
       }
-    } else {
-      gameOver = true;
     }
   }
 });
