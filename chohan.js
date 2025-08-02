@@ -207,7 +207,7 @@ function draw() {
     ctx.fillText("Please make a bet:", 20, canvas.height - 20);
   }
 
-  if (bankRoll <= 0 && !isRoll) {
+  if (bankRoll <= 26 && !isRoll) {
     gameOver = true;
   }
 
@@ -217,6 +217,7 @@ function draw() {
     ctx.font = "72px Monospace";
     ctx.fillStyle = "#ff3333";
     ctx.fillText("GAME OVER", (canvas.width / 2) - 178, canvas.height / 2 + 32);
+    disableButtons();
   }
 
   requestAnimationFrame(draw);
@@ -253,7 +254,7 @@ hanButton.addEventListener('click', function() {
 
 rollButton.addEventListener('click', function() {
   if (!isRoll) {
-    if (bankRoll > 0) {
+    if (!gameOver) {
       if (betCho != betHan) {
         bankRoll -= 27;
         isRoll = true;
@@ -267,8 +268,24 @@ rollButton.addEventListener('click', function() {
       } else {
         errorMessage = true;
       }
+    } else {
+      location.reload();
     }
   }
 });
+
+function disableButtons() {
+  rollButton.textContent = "RETRY?";
+  rollButton.style.paddingLeft = "48px";
+  rollButton.style.paddingRight = "48px";
+  choButton.style.backgroundColor = "#222";
+  hanButton.style.backgroundColor = "#222";
+  choButton.style.color = "#333";
+  hanButton.style.color = "#333";
+  choButton.style.cursor = "not-allowed";
+  hanButton.style.cursor = "not-allowed";
+  choButton.disabled = true;
+  hanButton.disabled = true;
+}
 
 draw();
